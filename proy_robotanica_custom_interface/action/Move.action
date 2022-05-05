@@ -1,0 +1,10 @@
+#goal
+float64 x #pos x
+float64 y #pos y
+float64 w #orientacion w
+---
+#result
+string status #estado final de la accion
+---
+#feedback
+string feedback #estado actual del robot
