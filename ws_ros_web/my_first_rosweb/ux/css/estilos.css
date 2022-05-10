@@ -1,0 +1,165 @@
+html {  
+    font-size: 18px;
+}
+
+body {
+background: linear-gradient(90deg, rgb(109, 236, 185) 15%, rgb(127, 205, 145) 65%, rgb(17, 153, 158) 100%);
+}
+
+.logo {
+    width: 75px;
+}
+
+.irHome {
+     color: #454545; /* Tu color en Hexa o RGB */
+     text-decoration: none;
+}
+.irHome:hover {
+    color: #414141;
+    text-decoration: none;
+}
+
+.inicio {
+    color: #777;
+}
+
+.inicio:hover {
+    color: #333;
+}
+/*Index*/
+.infoIndex{
+    background-color: #F5EAEA;
+    border-radius: 25px;
+}
+
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	left:40px;
+	background-color:#11999E;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float{
+	padding: 11px;
+}
+
+/*Funcionalidades*/
+.invernadero{
+    font-weight: bold;
+    margin-top: 20px;
+    padding-left: 30px;
+}
+
+.informacionPlantas {
+    background-color: #F5EAEA;
+    margin-top: 30px;
+    border-radius: 25px;
+    box-shadow: 4px 4px grey;
+}
+
+.datos{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.botones {
+    margin-top: 30px;
+}
+
+.btn {
+    background-color: #11999E;
+    border: 2px solid black;
+}
+
+.btn:hover {
+    background-color: #365a6a;
+    border: 2px solid black;
+}
+
+.fa-envelope-o:hover {
+    color: #365a6a;
+
+}
+
+.btn:focus {
+    background-color: #365a6a;
+    border: 2px solid black;
+}
+
+/*Login*/
+
+.pantalla
+{
+    margin: auto;
+}
+
+.login-form
+{
+    background-color: #F5EAEA;
+    margin-left: 30%;
+    margin-top: 7%;
+    margin-right: 30%;
+
+    border-style: solid;
+    border-radius: 6px;
+    border-width: thin thin thin thin;
+    border-color: black;
+}
+
+.formulario
+{
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10%;
+    margin-bottom: 15%;
+   
+}
+
+/*Contactanos*/
+
+.form-group{
+    margin-top: 1%;
+}
+
+.btn-contactanos{
+    margin-top: 2%;
+}
+
+/*Font-awesome integration*/
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+/*Google font integration*/
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+
+#contact .well{
+    margin-top:30px;
+    border-radius:0;
+}
+
+#contact .form-control{
+    border-radius: 0;
+    border:2px solid #1e1e1e;
+}
+
+#contact button{
+    border-radius:0;
+    border:2px solid #1e1e1e;
+}
+
+#contact .row{
+    margin-bottom:30px;
+}
+
+@media (max-width: 768px) { 
+    #contact iframe {
+        margin-bottom: 15px;
+    }
+    
+}

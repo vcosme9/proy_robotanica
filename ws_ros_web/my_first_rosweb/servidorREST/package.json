@@ -1,0 +1,21 @@
+{
+	"//": "npm run test",
+	"name": "servidorREST",
+	"description": "2021",
+	"license": "LGPL-3.0",
+	"version": "0.0.1",
+	"repository": "https://github.com/jasolflo/GTI-3A-Html",
+	"scripts": {
+		"servidor": "node mainServidorREST.js",
+		"test": "node ./node_modules/mocha/bin/mocha"
+	},
+	"dependencies": {
+		"cors": "*",
+		"express": "*",
+		"request": "*",
+		"sqlite3": "^5.0.6"
+	},
+	"devDependencies": {
+		"mocha": "*"
+	}
+}

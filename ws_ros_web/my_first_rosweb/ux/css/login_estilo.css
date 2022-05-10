@@ -1,0 +1,41 @@
+body {
+    background: #6DECB9;
+    width: 100%;
+    height: 100%;
+}
+
+.pantalla
+{
+    margin: auto;
+}
+
+a {
+     color: #454545; /* Tu color en Hexa o RGB */
+     text-decoration: none;
+}
+a:hover {
+    color: #414141;
+    text-decoration: none;
+}
+
+.login-form
+{
+    background-color: #F5EAEA;
+    margin-left: 30%;
+    margin-top: 7%;
+    margin-right: 30%;
+
+    border-style: solid;
+    border-radius: 6px;
+    border-width: thin thin thin thin;
+    border-color: black;
+}
+
+.formulario
+{
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 10%;
+    margin-bottom: 15%;
+   
+}
