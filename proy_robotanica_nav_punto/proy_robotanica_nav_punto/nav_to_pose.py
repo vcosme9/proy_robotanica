@@ -7,7 +7,7 @@ from action_msgs.msg import GoalStatus
 import time
 
 
-class FollowWaypoints(Node):
+class NavigationToPose(Node):
 
     def __init__(self):
         super().__init__('waypoint_client')
@@ -20,15 +20,11 @@ class FollowWaypoints(Node):
         
 
     #definimos la funcion de mandar goal
-    def send_goal(self):
+    def send_goal(self, goal_pose):
         # crea el mensaje tipo Goal
         # y lo rellena con el argumento dado
         # Rellena con la posicion (int) del punto al que quiere ir (int)
-        goal_pose = NavigateToPose.Goal()
-        goal_pose.pose.header.frame_id = 'map'
-        goal_pose.pose.pose.position.x= 5.0
-        goal_pose.pose.pose.position.y= 0.0
-        goal_pose.pose.pose.orientation.w= 1.0
+        
 	    #espera a que el servidor este listo
         self._action_client.wait_for_server()
         # envia el goal
@@ -55,6 +51,7 @@ class FollowWaypoints(Node):
             self.get_logger().info('Navigation_Succeded')
             rclpy.shutdown()
         else:
+            self.get_logger().info('----------tipo resultado: {0}'.format(type(status)))
             self.get_logger().info('Result: {0}'.format(status))
             self.send_goal()
         
@@ -69,9 +66,13 @@ class FollowWaypoints(Node):
 def main(args=None):
     rclpy.init(args=args)
 
-    
+    pose = NavigateToPose.Goal()
+    pose.pose.header.frame_id = 'map'
+    pose.pose.pose.position.x= 5.0
+    pose.pose.pose.position.y= 0.0
+    pose.pose.pose.orientation.w= 1.0
 
-    action_client = FollowWaypoints()
+    action_client = NavigationToPose(pose)
     future = action_client.send_goal()
     rclpy.spin(action_client)
 

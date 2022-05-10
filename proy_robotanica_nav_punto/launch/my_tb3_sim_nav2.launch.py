@@ -29,7 +29,7 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     # Models for Gazebo
-    pkg_share = FindPackageShare(package='my_world').find('my_world')
+    pkg_share = FindPackageShare(package='proy_robotanica_my_world').find('proy_robotanica_my_world')
     gazebo_models_path = os.path.join(pkg_share, 'models')
     os.environ["GAZEBO_MODEL_PATH"] = gazebo_models_path
     
@@ -136,7 +136,7 @@ def generate_launch_description():
 
     declare_world_cmd = DeclareLaunchArgument(
         'world',
-        default_value= os.path.join(get_package_share_directory('my_world'),'world/burger.model'),
+        default_value= os.path.join(get_package_share_directory('proy_robotanica_my_world'),'world/burger.model'),
         description='Full path to world model file to load')
 
     # Specify the actions
