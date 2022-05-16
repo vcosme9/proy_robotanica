@@ -29,7 +29,7 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     # Models for Gazebo
-    pkg_share = FindPackageShare(package='proy_robotanica_my_world').find('proy_robotanica_my_world')
+    pkg_share = FindPackageShare(package='proy_robotanica_world').find('proy_robotanica_world')
     gazebo_models_path = os.path.join(pkg_share, 'models')
     os.environ["GAZEBO_MODEL_PATH"] = gazebo_models_path
     

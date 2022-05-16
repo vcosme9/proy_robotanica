@@ -5,6 +5,7 @@ from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
 from rclpy.node import Node
 from rclpy.qos import ReliabilityPolicy, QoSProfile
+import time
 
 class Ros2OpenCVImageConverter(Node):   
 
@@ -24,7 +25,8 @@ class Ros2OpenCVImageConverter(Node):
             print(e)
 
         cv2.imshow("Imagen capturada por el robot", cv_image)
-                
+        time.sleep(30) 
+        cv2.destroyAllWindows()
         cv2.waitKey(1)    
 
 def main(args=None):

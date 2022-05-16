@@ -16,7 +16,7 @@ class FollowWaypoints(Node):
         #nodo
         #tipo de mensaje
         #nombre de la accion
-        self._action_client = ActionClient(self, NavigateToPose, 'navigate_to_pose')
+        self._action_client = ActionClient(self, FollowWaypoints, 'navigate_through_poses')
         
 
     #definimos la funcion de mandar goal
