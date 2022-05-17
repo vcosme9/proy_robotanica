@@ -34,16 +34,7 @@ module.exports = class Logica {
 			}
 		)
 	} // ()
-    
-    async _getMapaConEmail( email ){
-		
-		var usuario = await this._getUsuarioConEmail( email );
-		var invernadero = await this._getInvernaderoConIdInvernadero( usuario.id_invernadero );
 
-		return invernadero.mapa;
-		
-	}
-	
 	// -----------------------------------------------------------------
 	//	email, contrasenya: Texto
 	// _getUsuarioConEmailYContrasenya() -->
@@ -69,20 +60,44 @@ module.exports = class Logica {
 	}
 	
 	// -----------------------------------------------------------------
-	//	id_invernadero: Entero
-	// _getInvernaderoConIdInvernadero() -->
-	// email, nombre, id_invernadero, id_rol, contrasenya
+	//	email: Texto
+	// _getUsuarioConEmailYContrasenya() -->
+	// contrasenya
 	// -----------------------------------------------------------------
-	_getInvernaderoConIdInvernadero( id_invernadero ){
-		let textoSQL = "select * from Invernadero where id_invernadero=$id_invernadero";
-		let valoresParaSQL = { $id_invernadero : id_invernadero}
+	_comprobarContrasenyaConEmailYContrasenya( email, contrasenya ){
+		let textoSQL = "select Contrasenya from Usuario where email=$email and contrasenya=$contrasenya";
+		let valoresParaSQL = { $email: email, $contrasenya: contrasenya }
 		return new Promise( (resolver, rechazar) => {
 			this.laConexion.all( textoSQL, valoresParaSQL,
 			( err, res ) => {
 				if(err){
 					rechazar(err)
 				} else if(res.length > 1){
-					rechazar("ERROR: mas de 1 invernadero comparte id")
+					rechazar("ERROR: mas de 1 usuario comparte email")
+				} else if(res.length == 0){
+					rechazar(404)
+				} else {
+					resolver(res[0])
+				}
+			})
+		})
+	}
+
+	// -----------------------------------------------------------------
+	//	email: Texto
+	// _getUsuarioConEmailYContrasenya() -->
+	// contrasenya
+	// -----------------------------------------------------------------
+	_cambiarContrasenya( contrasenya, email ){
+		let textoSQL = "UPDATE Usuario SET contrasenya = $contrasenya where email=$email";
+		let valoresParaSQL = { $email: email, $contrasenya: contrasenya }
+		return new Promise( (resolver, rechazar) => {
+			this.laConexion.all( textoSQL, valoresParaSQL,
+			( err, res ) => {
+				if(err){
+					rechazar(err)
+				} else if(res.length > 1){
+					rechazar("ERROR: mas de 1 usuario comparte email")
 				} else if(res.length == 0){
 					rechazar(404)
 				} else {

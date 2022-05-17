@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', event => {
         let service = new ROSLIB.Service({
             ros: data.ros,
             name: '/movement',
-            serviceType: 'custom_interface/srv/MyMoveMsg'
+            serviceType: 'proy_robotanica_custom_interface/srv/MyMoveMsg'
         })
     
         let request = new ROSLIB.ServiceRequest({
