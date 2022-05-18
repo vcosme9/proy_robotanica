@@ -136,7 +136,7 @@ def generate_launch_description():
 
     declare_world_cmd = DeclareLaunchArgument(
         'world',
-        default_value= os.path.join(get_package_share_directory('proy_robotanica_my_world'),'world/burger.model'),
+        default_value= os.path.join(get_package_share_directory('proy_robotanica_world'),'world/burger_pi.model'),
         description='Full path to world model file to load')
 
     # Specify the actions
@@ -150,7 +150,7 @@ def generate_launch_description():
         cmd=['gzclient'],
         cwd=[launch_dir], output='screen')
 
-    urdf = os.path.join(burger_dir, 'urdf', 'turtlebot3_burger.urdf')
+    urdf = os.path.join(burger_dir, 'urdf', 'turtlebot3_burger_pi.urdf')
 
     start_robot_state_publisher_cmd = Node(
         condition=IfCondition(use_robot_state_pub),

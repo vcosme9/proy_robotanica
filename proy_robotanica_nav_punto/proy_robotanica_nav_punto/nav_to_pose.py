@@ -7,7 +7,7 @@ from action_msgs.msg import GoalStatus
 
 # Poner la el path de cada uno sin el "$" (IMPORTANTE)
 import sys
-sys.path.insert("~/turtlebot3_ws/src/proy_robotanica/proy_robotanica_capture_image/proy_robotanica_capture_image")
+sys.path.insert("/home/vcosme9/turtlebot3_ws/src/proy_robotanica/proy_robotanica_capture_image/proy_robotanica_capture_image")
 from capturar import Ros2OpenCVImageConverter as capturar_imagen
 
 
