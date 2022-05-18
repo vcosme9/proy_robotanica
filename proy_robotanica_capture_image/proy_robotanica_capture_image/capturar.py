@@ -6,6 +6,8 @@ from sensor_msgs.msg import Image
 from rclpy.node import Node
 from rclpy.qos import ReliabilityPolicy, QoSProfile
 
+
+
 class Ros2OpenCVImageConverter(Node):   
 
     def __init__(self):
@@ -25,7 +27,8 @@ class Ros2OpenCVImageConverter(Node):
 
         cv2.imshow("Imagen capturada por el robot", cv_image)
                 
-        cv2.waitKey(1)    
+        cv2.waitKey(1)  
+
 
 def main(args=None):
 

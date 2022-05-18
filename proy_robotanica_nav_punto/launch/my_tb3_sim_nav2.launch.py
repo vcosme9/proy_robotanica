@@ -29,7 +29,7 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     # Models for Gazebo
-    pkg_share = FindPackageShare(package='proy_robotanica_my_world').find('proy_robotanica_my_world')
+    pkg_share = FindPackageShare(package='proy_robotanica_world').find('proy_robotanica_world')
     gazebo_models_path = os.path.join(pkg_share, 'models')
     os.environ["GAZEBO_MODEL_PATH"] = gazebo_models_path
     
@@ -133,10 +133,10 @@ def generate_launch_description():
         'headless',
         default_value='False',
         description='Whether to execute gzclient)')
-
+    #declaramos nuestro mundo
     declare_world_cmd = DeclareLaunchArgument(
         'world',
-        default_value= os.path.join(get_package_share_directory('proy_robotanica_my_world'),'world/burger.model'),
+        default_value= os.path.join(get_package_share_directory('proy_robotanica_world'),'world/burger_pi.model'),
         description='Full path to world model file to load')
 
     # Specify the actions
@@ -150,7 +150,7 @@ def generate_launch_description():
         cmd=['gzclient'],
         cwd=[launch_dir], output='screen')
 
-    urdf = os.path.join(burger_dir, 'urdf', 'turtlebot3_burger.urdf')
+    urdf = os.path.join(burger_dir, 'urdf', 'turtlebot3_burger_pi.urdf')
 
     start_robot_state_publisher_cmd = Node(
         condition=IfCondition(use_robot_state_pub),
@@ -181,14 +181,7 @@ def generate_launch_description():
                           'params_file': params_file,
                           'default_bt_xml_filename': default_bt_xml_filename,
                           'autostart': autostart}.items())
-    """
-    # Ejecuta el nodo nav_to_pose.py
-    nav_to_pose = Node(
-            package='proy_robotanica_nav_punto',
-            executable='nav_to_pose',
-            output='screen'
-        )
-    """
+
     
     initial_pose_pub = Node(
             package='proy_robotanica_nav_punto',
