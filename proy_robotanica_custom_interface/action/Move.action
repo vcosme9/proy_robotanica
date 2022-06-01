@@ -1,7 +1,5 @@
 #goal
-float64 x #pos x
-float64 y #pos y
-float64 w #orientacion w
+int32 waypoints #segundos que el robot permanece moviendose
 ---
 #result
 string status #estado final de la accion

@@ -1,0 +1,5 @@
+string type # Define el tipo de planta a la que ir
+            # "tomate"
+            # "pimiento" 
+---
+bool success #respuesta

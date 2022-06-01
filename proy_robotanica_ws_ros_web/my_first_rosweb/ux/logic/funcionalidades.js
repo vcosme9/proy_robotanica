@@ -6,7 +6,16 @@ document.addEventListener('DOMContentLoaded', event => {
         call_delante_service("delante")
     })
     document.getElementById("parar").addEventListener("click", stop)
+    
     document.getElementById("moverAtras").addEventListener("click", reverse)
+
+    document.getElementById("nav_tomates").addEventListener("click", () => {
+        call_nav_service("tomate")
+    })
+
+    document.getElementById("nav_berenjenas").addEventListener("click", () => {
+        call_nav_service("berenjena")
+    })
 
     var conexion = ""
     //Atributos para representar la info de la conexion
@@ -130,6 +139,32 @@ document.addEventListener('DOMContentLoaded', event => {
     
         let request = new ROSLIB.ServiceRequest({
             move: valor
+        })
+    
+        service.callService(request, (result) => {
+            data.service_busy = false
+            data.service_response = JSON.stringify(result)
+        }, (error) => {
+            data.service_busy = false
+            console.error(error)
+        })	
+    }
+
+    //Mover el robor a partir de un servicio ya hecho 
+    function call_nav_service(valor){
+        data.service_busy = true
+        data.service_response = ''	
+        console.log("Se ha pulsado el boton con el valor: " + valor)
+    
+      //definimos los datos del servicio
+        let service = new ROSLIB.Service({
+            ros: data.ros,
+            name: '/service_nav_to_pose',
+            serviceType: 'proy_robotanica_custom_interface/srv/TypeOfPlant'
+        })
+    
+        let request = new ROSLIB.ServiceRequest({
+            type: valor
         })
     
         service.callService(request, (result) => {
