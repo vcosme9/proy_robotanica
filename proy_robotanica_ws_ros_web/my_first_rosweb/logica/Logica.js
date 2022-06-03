@@ -131,6 +131,33 @@ module.exports = class Logica {
 			})
 		})
 	}
+	
+	// -----------------------------------------------------------------
+	//	Dado un email, devuelve todas las fotos que le pertenezcan
+	//	a esa persona
+	//
+	//	email: Texto
+	// 		--> _getColeccionConEmail()
+	// 	[Coleccion] <--
+	// -----------------------------------------------------------------
+	async _getColeccionConEmail( email ){
+		
+		let usuario = await this._getUsuarioConEmail( email );
+		var textoSQL =
+			'select * from Coleccion where Coleccion.id_invernadero=$id_invernadero;'
+		var valoresParaSQL = { $id_invernadero: usuario.id_invernadero }
+		return new Promise( (resolver, rechazar) => {
+			this.laConexion.all( textoSQL, valoresParaSQL,
+			( err, res ) => {
+				if(err){
+					rechazar(err)
+				} else {
+					resolver(res)
+				}
+			})
+		})
+		
+	}
 
 	// -----------------------------------------------------------------
 	// cerrar() -->
