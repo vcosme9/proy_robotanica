@@ -5,12 +5,10 @@ from rclpy.node import Node
 from nav2_msgs.action import NavigateToPose
 from action_msgs.msg import GoalStatus
 import time
-import sys
-sys.path.append('/home/carlos/turtlebot3_ws/src/proy_robotanica_capture_image/proy_robotanica_capture_image')
 
-from capturar import Ros2OpenCVImageConverter as capturar_imagen
+from proy_robotanica_custom_interface.srv import MyCameraMsg
 
-class NavigationToPose(Node):
+class FollowWaypoints(Node):
 
     def __init__(self):
         super().__init__('waypoint_client')
@@ -21,6 +19,7 @@ class NavigationToPose(Node):
         #nombre de la accion
     
         self._action_client = ActionClient(self, NavigateToPose, 'navigate_to_pose')
+        self.req = MyCameraMsg.Request()
         
 
     #definimos la funcion de mandar goal
@@ -30,8 +29,8 @@ class NavigationToPose(Node):
         # Rellena con la posicion (int) del punto al que quiere ir (int)
         goal_pose = NavigateToPose.Goal()
         goal_pose.pose.header.frame_id = 'map'
-        goal_pose.pose.pose.position.x= 2.0
-        goal_pose.pose.pose.position.y= 0.0
+        goal_pose.pose.pose.position.x= -2.0
+        goal_pose.pose.pose.position.y= -3.0
         goal_pose.pose.pose.orientation.w= 1.0
 	    #espera a que el servidor este listo
         self._action_client.wait_for_server()
@@ -57,14 +56,35 @@ class NavigationToPose(Node):
         status = future.result().status
         if status == GoalStatus.STATUS_SUCCEEDED:
             self.get_logger().info('Navigation_Succeded')
-            self.inicialize_capture_image()
+            
+            client = self.create_client(MyCameraMsg, 'capturar')
+            
+            #cada segundo revisa si el servicio esta activo
+            while not client.wait_for_service(timeout_sec=1.0):
+                self.get_logger().info('el servicio no esta activo, prueba de nuevo...')
+            
+            
+            
+            self.future = client.call_async(self.req)
             #rclpy.shutdown()
+            
         else:
             if int(status) == 6:
 
                 self.get_logger().info('---> Result: {0}'.format(status))
 
                 self.send_goal()
+                self.get_logger().info('Abriendo camara')
+            
+                client = self.create_client(MyCameraMsg, 'capturar')
+                
+
+                #cada segundo revisa si el servicio esta activo
+                while not client.wait_for_service(timeout_sec=1.0):
+                    self.get_logger().info('el servicio no esta activo, prueba de nuevo...')
+                
+                #crea el mensaje 
+                self.future = client.call_async(self.req)
 
             # Si el resultado=3 significa que el robot SI ha llegado al punto indicado
 
@@ -72,9 +92,9 @@ class NavigationToPose(Node):
 
                 self.get_logger().info('---> Result: {0}'.format(status))
 
-                self.get_logger().info('---> Initializing image capture')
+                
 
-                self.inicialize_capture_image()
+                
         
 
     #definimos la funcion de respuesta al feedback
@@ -83,30 +103,13 @@ class NavigationToPose(Node):
         self.get_logger().info('Received feedback: {0}'.format(feedback.feedback))
 
     
-    # Llama a la clase Ros2OpenCVImageConverter donde 
-
-    def inicialize_capture_image(args=None):
-
-        rclpy.init(args=args)
-
-        img_converter_object = capturar_imagen()
-
-        try:
-
-            rclpy.spin(img_converter_object)
-
-        except KeyboardInterrupt:
-
-            img_converter_object.destroy_node()
-
-            print("Fin del programa!")  
-
+    
 def main(args=None):
     rclpy.init(args=args)
 
     
-
-    action_client = NavigationToPose()
+    
+    action_client = FollowWaypoints()
     future = action_client.send_goal()
     rclpy.spin(action_client)
 

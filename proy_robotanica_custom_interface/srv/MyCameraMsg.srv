@@ -1,0 +1,3 @@
+string req #peticion
+---
+bool success #respuesta

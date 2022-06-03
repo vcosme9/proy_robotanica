@@ -9,6 +9,10 @@
 
   <depend>rclpy</depend>
   <depend>cv2</depend>
+  
+  <depend>sensor_msgs</depend>
+
+  <depend>custom_interface</depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

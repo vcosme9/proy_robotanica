@@ -1,0 +1,9 @@
+string move # Define el tipo de movimiento
+            # "delante"
+            # "atras"
+            # "izquierda"
+            # "derecha"
+            # "parar"
+            # "circle" 
+---
+bool success #respuesta

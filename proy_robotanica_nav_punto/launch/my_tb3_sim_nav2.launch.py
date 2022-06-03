@@ -32,8 +32,8 @@ def generate_launch_description():
     pkg_share = FindPackageShare(package='proy_robotanica_world').find('proy_robotanica_world')
     gazebo_models_path = os.path.join(pkg_share, 'models')
     os.environ["GAZEBO_MODEL_PATH"] = gazebo_models_path
-    
-    # Get the launch directory
+    #os.environ["PYTHONPATH"] = "/home/carlos/virtualenvs/rosenv/lib/python3.8/site-packages:$PYTHONPATH"
+    # Get the launch directory  
     bringup_dir = get_package_share_directory('nav2_bringup')
     launch_dir = os.path.join(bringup_dir, 'launch')
     project_dir = get_package_share_directory('proy_robotanica_nav_punto')
@@ -87,7 +87,7 @@ def generate_launch_description():
 
     declare_map_yaml_cmd = DeclareLaunchArgument(
         'map',
-        default_value=os.path.join(project_dir, 'config', 'warehouse.yaml'),
+        default_value=os.path.join(project_dir, 'config', 'my_map.yaml'),
         description='Full path to map file to load')
 
     declare_use_sim_time_cmd = DeclareLaunchArgument(
@@ -136,7 +136,7 @@ def generate_launch_description():
     #declaramos nuestro mundo
     declare_world_cmd = DeclareLaunchArgument(
         'world',
-        default_value= os.path.join(get_package_share_directory('proy_robotanica_world'),'world/burger_pi.model'),
+        default_value= os.path.join(pkg_share,'world/burger_pi.model'),
         description='Full path to world model file to load')
 
     # Specify the actions

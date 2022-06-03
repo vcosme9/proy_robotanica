@@ -1,5 +1,0 @@
-string activate # Define si se activa el follow waypoints
-                # "activate"
-                # "deactivate" 
----
-bool success #respuesta

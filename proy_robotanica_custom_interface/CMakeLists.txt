@@ -26,6 +26,7 @@ find_package(rosidl_default_generators REQUIRED) # Añadir
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
+
   # the following line skips the linter which checks for copyrights
   # uncomment the line when a copyright and license is not present in all source files
   #set(ament_cmake_copyright_FOUND TRUE)
@@ -37,9 +38,10 @@ endif()
 
 # Añadir la siguiente funcion
 rosidl_generate_interfaces(${PROJECT_NAME}
-  "srv/TypeOfPlant.srv"
-  "action/Move.action"
   "msg/Distvel.msg"
+  "srv/MyMoveMsg.srv"  #incluir esta linea
+  "srv/MyCameraMsg.srv"  #incluir esta linea
+  "action/Move.action" #incluir
+  "msg/Circle.msg"
 )
-
 ament_package()
