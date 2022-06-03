@@ -1,48 +1,47 @@
-
 #importamos la bib ROS2 para python
+from queue import Empty
 import rclpy
 from rclpy.node import Node
 
 from rclpy.action import ActionClient
-from nav2_msgs.action import NavigateToPose
+from nav2_msgs.action import NavigateToPose, FollowWaypoints
 from action_msgs.msg import GoalStatus
 
-from proy_robotanica_custom_interface.srv import TypeOfPlant
+from proy_robotanica_custom_interface.srv import Waypoints
 
 
 #definimos la clase cliente
 class Service(Node):
     def __init__(self):
         #constructor con el nombre del nodo
-        super().__init__('servicio_nav_to_pose') 
+        super().__init__('servicio_nav_through_waypoints')
 
-        # tomate || berenjena
-        self.tipo_planta = ""
+        # activate || deactivate
+        self.activar = ""
+
         # declara el objeto servicio pasando como parametros
         # tipo de mensaje
         # nombre del servicio
         # callback del servicio
-        self.srv = self.create_service(TypeOfPlant, '/service_nav_to_pose', self.service_nav_pose_callback)
+        self.srv = self.create_service(Waypoints, '/service_nav_through_waypoints', self.service_nav_waypoints_callback)
 
 
         # Creamos el cliente de acciones de la navegacion a un punto
-        self._action_client = ActionClient(self, NavigateToPose, 'navigate_to_pose')
+        self._action_client = ActionClient(self, FollowWaypoints, 'navigate_through_waypoints')
 
-    def service_nav_pose_callback(self, request, response):
+    def service_nav_waypoints_callback(self, request, response):
         # recibe los parametros de esta clase
         #  recibe el mensaje request
         # devuelve el mensaje response
-        
-        self.get_logger().info(f'Se ha activado el servicio para: {request.type}')
 
-        if request.type == "tomate":
-            self.tipo_planta = request.type
+        if request.activate == "activate":
+            self.activar = request.activate
             self.send_goal()
             # devuelve la respuesta
             response.success = True
 
-        elif request.type == "berenjena":
-            self.tipo_planta = request.type
+        elif request.activate == "deactivate":
+            self.activar = request.activate
             self.send_goal()
             # devuelve la respuesta
             response.success = True
@@ -58,27 +57,51 @@ class Service(Node):
 
     def send_goal(self):
 
-        if(self.tipo_planta == "tomate"):
+        if(self.activar == "activate"):
             # imprime mensaje informando del movimiento
-            self.get_logger().info('Navegacion a los tomates')
+            self.get_logger().info('Navegacion por waypoints activado')
 
-            goal_pose = NavigateToPose.Goal()
-
-            goal_pose.pose.header.frame_id = 'map'
-            goal_pose.pose.pose.position.x= 1.0
-            goal_pose.pose.pose.position.y= 1.0
-            goal_pose.pose.pose.orientation.w= 1.0
+            # Array con posiciones
+            goal_poses = []
+            # Waypoint 1
+            goal_pose_1 = NavigateToPose.Goal()
+            goal_pose_1.pose.header.frame_id = 'map'
+            goal_pose_1.pose.pose.position.x= 5.0
+            goal_pose_1.pose.pose.position.y= 0.0
+            goal_pose_1.pose.pose.orientation.w= 1.0
+            goal_poses.append(goal_pose_1)
+            # Waypoint 2
+            goal_pose_2 = NavigateToPose.Goal()
+            goal_pose_2.pose.header.frame_id = 'map'
+            goal_pose_2.pose.pose.position.x= 5.0
+            goal_pose_2.pose.pose.position.y= 0.0
+            goal_pose_2.pose.pose.orientation.w= 1.0
+            goal_poses.append(goal_pose_2)
+            # Waypoint 3
+            goal_pose_3 = NavigateToPose.Goal()
+            goal_pose_3.pose.header.frame_id = 'map'
+            goal_pose_3.pose.pose.position.x= 5.0
+            goal_pose_3.pose.pose.position.y= 0.0
+            goal_pose_3.pose.pose.orientation.w= 1.0
+            goal_poses.append(goal_pose_3)
+            # Waypoint 4
+            goal_pose_4 = NavigateToPose.Goal()
+            goal_pose_4.pose.header.frame_id = 'map'
+            goal_pose_4.pose.pose.position.x= 5.0
+            goal_pose_4.pose.pose.position.y= 0.0
+            goal_pose_4.pose.pose.orientation.w= 1.0
+            goal_poses.append(goal_pose_4)
            
 
-        elif(self.tipo_planta == "berenjena"):
+        elif(self.activar == "deactivate"):
             # imprime mensaje informando del movimiento
-            self.get_logger().info('Navegacion a las berenjenas')
+            self.get_logger().info('Navegacion por waypoints desactivado')
 
             goal_pose = NavigateToPose.Goal()
 
             goal_pose.pose.header.frame_id = 'map'
-            goal_pose.pose.pose.position.x= 4.0
-            goal_pose.pose.pose.position.y= 2.0
+            goal_pose.pose.pose.position.x= 0.0
+            goal_pose.pose.pose.position.y= 0.0
             goal_pose.pose.pose.orientation.w= 1.0
 
         #espera a que el servidor este listo
