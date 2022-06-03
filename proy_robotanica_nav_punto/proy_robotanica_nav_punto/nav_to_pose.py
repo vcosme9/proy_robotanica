@@ -10,7 +10,7 @@ sys.path.append('/home/carlos/turtlebot3_ws/src/proy_robotanica_capture_image/pr
 
 from capturar import Ros2OpenCVImageConverter as capturar_imagen
 
-class FollowWaypoints(Node):
+class NavigationToPose(Node):
 
     def __init__(self):
         super().__init__('waypoint_client')
@@ -106,7 +106,7 @@ def main(args=None):
 
     
 
-    action_client = FollowWaypoints()
+    action_client = NavigationToPose()
     future = action_client.send_goal()
     rclpy.spin(action_client)
 
