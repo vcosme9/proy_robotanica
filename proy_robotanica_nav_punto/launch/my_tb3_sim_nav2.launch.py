@@ -152,6 +152,8 @@ def generate_launch_description():
 
     urdf = os.path.join(burger_dir, 'urdf', 'turtlebot3_burger_pi.urdf')
 
+
+
     start_robot_state_publisher_cmd = Node(
         condition=IfCondition(use_robot_state_pub),
         package='robot_state_publisher',
@@ -182,7 +184,13 @@ def generate_launch_description():
                           'default_bt_xml_filename': default_bt_xml_filename,
                           'autostart': autostart}.items())
 
-    
+    LaunchDescription([
+        Node(
+            package='proy_robotanica_nav_punto',
+            executable='odom_subscriber',
+            output='screen'),
+    ])
+
     initial_pose_pub = Node(
             package='proy_robotanica_nav_punto',
             executable='initial_pose_pub',

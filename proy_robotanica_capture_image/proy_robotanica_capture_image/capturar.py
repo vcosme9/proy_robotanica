@@ -32,7 +32,11 @@ class Ros2OpenCVImageConverter(Node):
         
 
     def service_callback(self, request, response):
-        image_sub = self.create_subscription(Image,'/camera/image_raw',self.camera_callback,QoSProfile(depth=10, reliability=ReliabilityPolicy.RELIABLE))
+        image_sub = self.create_subscription(
+            Image,'/camera/image_raw',
+            self.camera_callback,
+            QoSProfile(depth=10, 
+            reliability=ReliabilityPolicy.RELIABLE))
         print("img hecho")
         response.success = True
         print("Callback servicio hecho")
