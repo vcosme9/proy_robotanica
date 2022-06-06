@@ -20,6 +20,9 @@ export default class LogicaFakeLogIn {
             message.innerHTML = "Email o contraseña incorrectos";
             return;
         } else {
+			
+			//guardo el email para recuperar la información de este usuario más adelante
+			localStorage.setItem('email', email)
 			window.open("./funcionalidades.html", "_self")
             
         }
