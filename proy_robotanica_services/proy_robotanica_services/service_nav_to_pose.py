@@ -9,6 +9,12 @@ from action_msgs.msg import GoalStatus
 
 from proy_robotanica_custom_interface.srv import TypeOfPlant
 
+from nav_msgs.msg import Odometry
+from rclpy.qos import ReliabilityPolicy, QoSProfile
+import time
+
+from proy_robotanica_custom_interface.srv import MyCameraMsg
+
 
 #definimos la clase cliente
 class Service(Node):
@@ -27,6 +33,39 @@ class Service(Node):
 
         # Creamos el cliente de acciones de la navegacion a un punto
         self._action_client = ActionClient(self, NavigateToPose, 'navigate_to_pose')
+
+        self.req = MyCameraMsg.Request()
+
+        #Variable que cambiara cuando llegue al goal estipulado
+        self.isPosition = False
+
+        # crear el objeto subscriptor
+        # al topic /odom topic wcon una cola de 10 messages.
+        # create_subscription(msg_type, topic, callback, qos_profile, callback_group, event_callbacks, raw)
+        self.subscriber= self.create_subscription(
+            Odometry,
+            '/odom',
+            self.comprobar_pos,
+            QoSProfile(depth=10, reliability=ReliabilityPolicy.BEST_EFFORT)) 
+        # prevent unused variable warning
+        self.subscriber      
+
+    def comprobar_pos(self, msg):
+        # imprime los datos leídos  
+        self.get_logger().info('POS X: ' + str(msg.pose.pose.position.x) + 'POS Y: ' + str(msg.pose.pose.position.y))     
+        if(abs(msg.pose.pose.position.x - self.goal_pose.pose.pose.position.x) < 0.25 and abs(msg.pose.pose.position.y - self.goal_pose.pose.pose.position.y) < 0.25):
+            self.isPosition = True
+            self.get_logger().info('Abriendo camara')
+            client = self.create_client(MyCameraMsg, 'capturar')
+            #crea el mensaje 
+            self.future = client.call_async(self.req)
+            #cada segundo revisa si el servicio esta activo
+            while not client.wait_for_service(timeout_sec=1.0):
+                self.get_logger().info('el servicio no esta activo, prueba de nuevo...')
+
+        else:
+            self.isPosition = False
+            self.get_logger().info('No se ha llegado aun')
 
     def service_nav_pose_callback(self, request, response):
         # recibe los parametros de esta clase
