@@ -38,6 +38,12 @@ endif()
 
 # Añadir la siguiente funcion
 rosidl_generate_interfaces(${PROJECT_NAME}
+<<<<<<< Updated upstream
+=======
+  "srv/TypeOfPlant.srv"
+  "srv/Waypoints.srv"
+  "action/Move.action"
+>>>>>>> Stashed changes
   "msg/Distvel.msg"
   "srv/MyMoveMsg.srv"  #incluir esta linea
   "srv/MyCameraMsg.srv"  #incluir esta linea
