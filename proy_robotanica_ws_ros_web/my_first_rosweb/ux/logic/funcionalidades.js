@@ -18,6 +18,15 @@ document.addEventListener('DOMContentLoaded', event => {
         call_nav_service("berenjena")
     })
 
+    // Servicio de la camara
+    document.getElementById("nav_tomates").addEventListener("click", () => {
+        call_capture_image("")
+    })
+    // Servicio de la camara
+    document.getElementById("nav_berenjenas").addEventListener("click", () => {
+        call_capture_image("")
+    })
+
     // Navegacion por ruta
     document.getElementById("nav_ruta").addEventListener("click", () => {
         call_nav_waypoints_service("activate")
@@ -220,6 +229,32 @@ document.addEventListener('DOMContentLoaded', event => {
             ros: data.ros,
             name: '/service_nav_through_waypoints',
             serviceType: 'proy_robotanica_custom_interface/srv/Waypoints'
+        })
+    
+        let request = new ROSLIB.ServiceRequest({
+            type: valor
+        })
+    
+        service.callService(request, (result) => {
+            data.service_busy = false
+            data.service_response = JSON.stringify(result)
+        }, (error) => {
+            data.service_busy = false
+            console.error(error)
+        })	
+    }
+
+    // Servicio de navegacion por una ruta
+    function call_capture_image(valor){
+        data.service_busy = true
+        data.service_response = ''	
+        console.log("Se ha pulsado el boton con el valor: " + valor)
+    
+        //definimos los datos del servicio
+        let service = new ROSLIB.Service({
+            ros: data.ros,
+            name: '/capturar',
+            serviceType: 'proy_robotanica_custom_interface/srv/MyCameraMsg'
         })
     
         let request = new ROSLIB.ServiceRequest({
