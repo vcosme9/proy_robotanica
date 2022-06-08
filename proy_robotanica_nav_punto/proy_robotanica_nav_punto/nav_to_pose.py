@@ -40,7 +40,7 @@ class FollowWaypoints(Node):
     def comprobar_pos(self, msg):
         # imprime los datos leídos  
         self.get_logger().info('POS X: ' + str(msg.pose.pose.position.x) + 'POS Y: ' + str(msg.pose.pose.position.y))     
-        if(abs(msg.pose.pose.position.x - self.goal_pose.pose.pose.position.x) < 0.25 and abs(msg.pose.pose.position.y - self.goal_pose.pose.pose.position.y) < 0.25):
+        if(abs(msg.pose.pose.position.x - self.goal_pose.pose.pose.position.x) < 0.5 and abs(msg.pose.pose.position.y - self.goal_pose.pose.pose.position.y) < 0.5):
             self.isPosition = True
             self.get_logger().info('Abriendo camara')
             client = self.create_client(MyCameraMsg, 'capturar')
@@ -84,6 +84,16 @@ class FollowWaypoints(Node):
         if status == GoalStatus.STATUS_SUCCEEDED:
             self.get_logger().info('Navigation_Succeded')
             
+            client = self.create_client(MyCameraMsg, 'capturar')
+            
+            #cada segundo revisa si el servicio esta activo
+            while not client.wait_for_service(timeout_sec=1.0):
+                self.get_logger().info('el servicio no esta activo, prueba de nuevo...')
+            
+            
+            
+            self.future = client.call_async(self.req)
+            #rclpy.shutdown()
             
         else:
             if int(status) == 6:
@@ -111,7 +121,7 @@ def main(args=None):
     goal_pose = NavigateToPose.Goal()
     goal_pose.pose.header.frame_id = 'map'
     goal_pose.pose.pose.position.x= 2.0
-    goal_pose.pose.pose.position.y= 2.0
+    goal_pose.pose.pose.position.y= 0.0
     goal_pose.pose.pose.orientation.w= 1.0
     action_client = FollowWaypoints()
     future = action_client.send_goal(goal_pose)
