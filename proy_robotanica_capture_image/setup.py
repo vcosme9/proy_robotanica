@@ -1,4 +1,6 @@
 from setuptools import setup
+import os
+from glob import glob
 
 package_name = 'proy_robotanica_capture_image'
 
@@ -10,6 +12,7 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        (os.path.join('share', package_name), glob('launch/*.launch.py')) 
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -19,7 +22,7 @@ setup(
     license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
-        'console_scripts': [ 'proy_robotanica_capture_image=proy_robotanica_capture_image.capturar:main'
+        'console_scripts': [ 'capturar=proy_robotanica_capture_image.capturar:main'
 
         ],
     },

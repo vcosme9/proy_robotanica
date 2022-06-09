@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Funcionalidades</title>
     <!-- Estilos boostrap -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="plugins/boots/popper.min.js"></script>
     <!-- CSS only -->
@@ -14,12 +15,12 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!-- Estilos propios -->
-    <link rel= "styleSheet" href="css/estilos.css" type="text/css">
+    <link rel="styleSheet" href="css/estilos.css" type="text/css">
     <script src="https://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
     <script src="logic/funcionalidades.js"></script>
-	
-	
-	<!--
+
+
+    <!--
 	<script type="module">
 		import logicaFake from "./logic/LogicaFake.js"
 		document.onreadystatechange = function() {
@@ -37,39 +38,42 @@
 
 	</script>
 	-->
-	
-	
-	
+
+
+
 </head>
+
 <body>
     <!--<nav class="navbar navbar-dark bg-primary">
         <a class="navbar-brand" href="#!">Fixed top</a>
     </nav>-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="irHome" href="index.html">
-            <img class="logo" src="img/Robotanica.png" alt="Logo Robotanica">
-        </a>
-        <a class="irHome" href="index.html"><h2>Robotánica</h2></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item active">
-              <a class="nav-link inicio" href="index.html"><span style="font-size:40px;">&#8962</span>  <span style="font-size:30px;">Inicio </span></a>
-            </li>
-          </ul>
+        <div class="container-fluid">
+            <a class="irHome" href="index.html">
+                <img class="logo" src="img/Robotanica.png" alt="Logo Robotanica">
+            </a>
+            <a class="irHome" href="index.html">
+                <h2>Robotánica</h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link inicio" href="index.html"><span style="font-size:40px;">&#8962</span> <span style="font-size:30px;">Inicio </span></a>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
-    </nav> 
-    
-<!-- Datos -->
-	<img id="mapa-usuario"></img>
+    </nav>
+
+    <!-- Datos -->
+    <img id="mapa-usuario"></img>
     <h1 class="invernadero">Invernadero de Gandía</h1>
     <div class="container informacionPlantas">
         <div class="row text-center">
-           <div class="container datos col-4">
+            <div class="container datos col-4">
                 <h5>Tipo de planta</h5>
 
                 <p>Tomate</p>
@@ -78,7 +82,7 @@
                 <p>Calabaza</p>
                 <p>Calabaza</p>
             </div>
-            
+
             <div class="container datos col-4">
                 <h5>Posición</h5>
 
@@ -88,7 +92,7 @@
                 <p>15.24</p>
                 <p>17.20</p>
             </div>
-            
+
             <div class="container datos col-4">
                 <h5>Estado</h5>
 
@@ -102,43 +106,135 @@
     </div>
     <div class="container botones">
 
-<!-- Botones -->
+
+
+
+
+        <!-- Botones -->
         <div class="container">
             <div class="row text-center">
-            <div class="col-3">
-                <img src="img/arrow.png" alt="Start" style="transform:rotate(180deg);">
-                <br>
-                <br>
-                <button id="moverDelante" class="btn btn-primary">Delante</button>  
+               
+               
+                <!-- Boton para elegir hacia donde mover el robot -->
+                <div class="col-3">
+                    <img src="img/arrow.png" alt="Start" style="transform:rotate(180deg);">
+                    <br>
+                    <br>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropMovimientos">
+                        Mover el robot
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdropMovimientos" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog" style="margin-top: 12.5%; margin-bottom: 12.5%">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">¿Hacia dónde quieres que se mueva el robot?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="d-flex justify-content-around modal-body">
+                                   
+                                    <div>
+                                        <img src="img/arrow.png" alt="Adelante" style="transform:rotate(180deg);">
+                                        <br>
+                                        <br>
+                                        <button id="moverDelante" class="btn btn-primary">Adelante</button>
+                                    </div>
+                                    <div>
+                                        <img src="img/arrow.png" alt="Atrás">
+                                        <br>
+                                        <br>
+                                        <button id="moverAtras" class="btn btn-primary">Atrás</button>
+                                    </div>
+                                    <div>
+                                        <img src="img/stop.png" alt="Parar">
+                                        <br>
+                                        <br>
+                                        <button id="parar" class="btn btn-primary">Parar</button>
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+               
+                <!-- Boton para elegir las verduras -->
+                <div class="col-3">
+                    <img src="img/tomate.png" alt="Start">
+                    <br>
+                    <br>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdropVerduras">
+                        Ver verduras
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdropVerduras" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog" style="margin-top: 12.5%; margin-bottom: 12.5%">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">¿Hacia qué verduras quieres dirigirte?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="d-flex justify-content-around modal-body">
+                                   
+                                    <div>
+                                        <img src="img/pimiento.png" alt="Pimientos">
+                                        <br>
+                                        <br>
+                                        <button id="nav_pimientos" class="btn btn-primary">Pimientos</button>
+                                    </div>
+                                    <div>
+                                        <img src="img/tomate.png" alt="Tomates">
+                                        <br>
+                                        <br>
+                                        <button id="nav_tomates" class="btn btn-primary">Tomates</button>
+                                    </div>
+                                    <div>
+                                        <img src="img/berenjena.png" alt="Berenjenas">
+                                        <br>
+                                        <br>
+                                        <button id="nav_berenjenas" class="btn btn-primary">Berenjena</button>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Aceptar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <img src="img/ruta.png" alt="Enviar">
+                    <br>
+                    <br>
+                    <button id="nav_ruta" class="btn btn-primary">Navegar por ruta</button>
+                </div>
+                <div class="col-3">
+                    <img src="img/analizar.png" alt="Analizar">
+                    <br>
+                    <br>
+                    <a class="btn btn-primary" href="./galeria.html">Galería</a>
+                </div>
+
             </div>
-            <div class="col-3">
-                <img src="img/stop.png" alt="Escanerr">
-                <br>
-                <br>
-                <button id="parar" class="btn btn-primary">Parar</button>  
-            </div>
-            <div class="col-3">
-                <img src="img/arrow.png" alt="Enviar">
-                <br>
-                <br>
-                <button id="moverAtras" class="btn btn-primary">Atrás</button>  
-            </div>
-            <div class="col-3">
-                <img src="img/analizar.png" alt="Analizar">
-                <br>
-                <br>
-                <button class="btn btn-primary">Analizar</button>  
-            </div>
-            
-           </div>
         </div>
     </div>
     <footer class="text-center text-white fixed-bottom" style="background-color: #000;">
-      <!-- Grid container -->
-      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        © 2022 <a class="text-white" href="https://www.upv.es/va">Universitat Politècnica de València</a> |
-        Robotánica | Equipo 4 
-      </div>
+        <!-- Grid container -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2022 <a class="text-white" href="https://www.upv.es/va">Universitat Politècnica de València</a> |
+            Robotánica | Equipo 4
+        </div>
     </footer>
     <!-- <div class="mapas center">
         <h2>Mapa contenedores</h2>       
@@ -148,5 +244,4 @@
         <h2>Mapa accidentes Madrid</h2>       
         <iframe src="html/Accidentes_Madrid.html" frameborder="0"></iframe>
     </div> -->
-</body>
-</html>
+</body></html>

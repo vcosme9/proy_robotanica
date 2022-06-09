@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Funcionalidades</title>
+	<!-- Iconos -->
+	<script crossorigin="anonymous" src="https://kit.fontawesome.com/325dfa6175.js"></script>
+    <!-- Estilos boostrap -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- Estilos propios -->
+    <link rel= "styleSheet" href="css/estilos.css" type="text/css">
+	
+<script type="module">
+    import LogicaGaleria from "./logic/LogicaGaleria.js";
+
+    document.onreadystatechange = function () {
+        if (document.readyState === "complete") {
+            let Logica = new LogicaGaleria();
+
+            async function runApp() {
+		
+				var f_inicio = document.getElementById("fecha_inicio")
+				var f_fin = document.getElementById("fecha_fin")
+				var tipo = document.getElementById("selecciona_cultivo")
+
+				let boton=document.getElementById("btn_filtrar")
+				boton.addEventListener("click", async function(){
+					await Logica.actualizar_tabla(f_inicio.value, f_fin.value, tipo.value)
+				})
+			
+                await Logica.init()
+            }
+
+            runApp();
+        }
+    }
+</script>
+
+	
+</head>
+<body>
+    <!--<nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand" href="#!">Fixed top</a>
+    </nav>-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="irHome" href="index.html">
+            <img class="logo" src="img/Robotanica.png" alt="Logo Robotanica">
+        </a>
+        <a class="irHome" href="index.html"><h2>Robotánica</h2></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item active">
+              <a class="nav-link inicio" href="index.html"><span style="font-size:40px;">&#8962</span>  <span style="font-size:30px;">Inicio </span></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav> 
+    
+<!-- Datos -->
+	<img id="mapa-usuario"></img>
+    <h1 class="invernadero">Galería</h1>
+	
+	<!-- FILTRADO -->
+	<div class="container text-center">
+		<!--<input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">-->
+		<p style="font-weight: bold;">De: 
+			<input type="date" id="fecha_inicio"> 
+			hasta: 
+			<input type="date" id="fecha_fin"> 
+			Tipo de cultivo: 
+			<select id="selecciona_cultivo">
+				<option value="Todos">Todos</option>
+				<option value="Tomates">Tomates</option>
+				<option value="Pepinos">Pepinos</option>
+			</select>
+			<button id="btn_filtrar">Filtrar</button>
+		</p>
+	</div>
+	<!-- FIN FILTRADO -->
+	
+	<div class="container" style="max-width: 70%;">
+	<table class="table table-striped informacionPlantas">
+        <thead>
+        <tr class="text-center">
+            <th>Imagen</th>
+            <th>Sección</th>
+            <th>Fecha</th>
+        </tr>
+        </thead>
+        <tbody id="body-tabla">
+        </tbody>
+    </table>
+	</div>
+	<br/>
+	<br/>
+	<br/>
+    <footer class="text-center text-white fixed-bottom" style="background-color: #000;">
+      <!-- Grid container -->
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2022 <a class="text-white" href="https://www.upv.es/va">Universitat Politècnica de València</a> |
+        Robotánica | Equipo 4 
+      </div>
+    </footer>
+</body>
+</html>

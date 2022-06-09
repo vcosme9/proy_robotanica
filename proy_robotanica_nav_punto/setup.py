@@ -29,8 +29,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-        	'nav_to_pose = proy_robotanica_nav_punto.nav_to_pose:main', #añadir
+        'nav_to_pose = proy_robotanica_nav_punto.nav_to_pose:main', #añadir
 		'initial_pose_pub = proy_robotanica_nav_punto.initial_pose_pub:main', #añadir
+        'simple_subscriber = proy_robotanica_nav_punto.odom_subscriber:main' #incluir
         ],
     },
 )

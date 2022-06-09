@@ -113,7 +113,7 @@ Visualization Manager:
     - Alpha: 1
       Class: rviz_default_plugins/RobotModel
       Collision Enabled: false
-      Description File: /opt/ros/foxy/share/turtlebot3_description/urdf/turtlebot3_burger.urdf
+      Description File: /opt/ros/foxy/share/turtlebot3_description/urdf/turtlebot3_burger_pi.urdf
       Description Source: File
       Description Topic:
         Depth: 5

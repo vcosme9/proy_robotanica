@@ -11,6 +11,8 @@ create table Invernadero(
 create table Coleccion(
 	url 				varchar(255) 	PRIMARY KEY,
 	id_invernadero 		INTEGER		 	not null,
+	seccion				varchar(255)	not null,
+	fecha				varchar(255)	not null,
 	
 	foreign key(id_invernadero) references Invernadero(id_invernadero)
 );
